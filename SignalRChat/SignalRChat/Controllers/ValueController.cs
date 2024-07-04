@@ -5,7 +5,6 @@ using SignalRChat.Hubs;
 
 namespace SignalRChat.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ValueController : Controller
