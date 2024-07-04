@@ -5,13 +5,13 @@ using SignalRChat.Hubs;
 
 namespace SignalRChat.Controllers
 {
-    [Authorize]
+ 
     [ApiController]
     [Route("api/[controller]")]
     public class ValueController : Controller
     {
-        private readonly IHubContext<ChatHub> _hubContext;
-        public ValueController(IHubContext<ChatHub> hubContext)
+        private readonly IHubContext<StronglyTypedChatHub,IChatClient> _hubContext;
+        public ValueController(IHubContext<StronglyTypedChatHub, IChatClient> hubContext)
         {
             _hubContext = hubContext;
         }
@@ -35,8 +35,8 @@ namespace SignalRChat.Controllers
             client.Stars = value;
           
             //await _hubContext.Clients.Group(client.Group).SendAsync("ReceiveMessage", userName, "Group");
-            await _hubContext.Clients.AllExcept(client.Id).SendAsync("ReceiveMessage", userName,$"pay attention {userName} hava {value} stars");
-            await _hubContext.Clients.Client(client.Id).SendAsync("ReceiveMessage", userName, $"you have {value} stars");
+            await _hubContext.Clients.AllExcept(client.Id).ReceiveMessage( userName,$"pay attention {userName} hava {value} stars");
+            await _hubContext.Clients.Client(client.Id).Notification(userName, $"you have {value} stars");
             return Ok($"{DateTime.Now},id={userName}, value={value}");
         }
 

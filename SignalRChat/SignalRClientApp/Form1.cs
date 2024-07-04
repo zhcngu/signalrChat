@@ -22,8 +22,8 @@ namespace SignalRClientApp
             InitializeComponent();
             var host = ConfigurationManager.AppSettings["signalrHost"];
             connection = new HubConnectionBuilder()
-    .WithUrl($"{host}/ChatHub", ops => { ops.AccessTokenProvider = async () => { return await Task.FromResult(token); }; })
-    .Build();
+            .WithUrl($"{host}/StronglyTypedChatHub", ops => { ops.AccessTokenProvider = async () => { return await Task.FromResult(token); }; })
+            .Build();
             connection.Closed += async (error) =>
             {
                 //await connection.DisposeAsync();
@@ -42,6 +42,15 @@ namespace SignalRClientApp
                 this.Invoke(new Action(() =>
                 {
                     var newMessage = $"{DateTime.Now.ToString()} {user}: {message}";
+                    txtMsgs.Text += newMessage + "\r\n";
+                }));
+            });
+
+            connection.On<string, string>("Notification", (user, message) =>
+            {
+                this.Invoke(new Action(() =>
+                {
+                    var newMessage = $"{DateTime.Now.ToString()} : {message}";
                     txtMsgs.Text += newMessage + "\r\n";
                 }));
             });

@@ -76,6 +76,7 @@ namespace SignalRChat
                 pattern: "{controller=Home}/{action=Privacy}/{id?}");
 
             app.MapHub<ChatHub>("chatHub");
+            app.MapHub<StronglyTypedChatHub>("StronglyTypedChatHub");
             app.Run();
         }
     }
