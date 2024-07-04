@@ -15,10 +15,6 @@ namespace SignalRChat
             builder.Services.AddControllersWithViews();
             builder.Services.AddSignalR();
 
-            //{
-            //    os.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    os.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
          .AddJwtBearer(jwtops => 
             {

@@ -32,6 +32,7 @@ namespace SignalRClientApp
                 //await Task.Delay(new Random().Next(0, 5) * 1000);
                 //await connection.StartAsync();
                 this.Invoke(new Action(() => {
+                    
                     btnConn.Enabled = true;
                     txtMsgs.Text += "服务端断开链接\r\n";
                 }));
